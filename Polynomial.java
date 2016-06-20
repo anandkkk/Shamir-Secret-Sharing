@@ -1,7 +1,7 @@
 package edu.biu.scapi.primitives.dlog;
-import edu.biu.scapi.primitives.dlog.GF2m;
+import edu.biu.scapi.primitives.dlog.CryptoPpDlogGF;
 
-class Polynomial {
+public class Polynomial {
 
 /*
 
@@ -13,10 +13,9 @@ x_position : x coordinate at which we want to find y
 	int x[],y[],w[],v[];
 	int n,x_position;
 	
-	private native long createFieldGf();
-	private native void PrepareBulkPolynomialInterpolation(CryptoPpDlogGF ring,int w[], int x[], unsigned int n);
-	private native void PrepareBulkPolynomialInterpolationAt(CryptoPpDlogGF ring, int v[], int x_position, int x[], int w[], unsigned int n);
-	private native int BulkPolynomialInterpolateAt(CryptoPpDlogGF ring,int y[], int v[], unsigned int n);
+	private native void PrepareBulkPolynomialInterpolation(long ring,int w[], int x[], int n);
+	private native void PrepareBulkPolynomialInterpolationAt(long ring, int v[], int x_position, int x[], int w[], int n);
+	private native int BulkPolynomialInterpolateAt(long ring,int y[], int v[], int n);
 	
 
 	static {
@@ -24,9 +23,14 @@ x_position : x coordinate at which we want to find y
 	}
 
 
+
+	public Polynomial(){
+		CryptoPpDlogGF ring = new CryptoPpDlogGF();
+	}
+
 	public int doInterpolation(int X[],int Y[], int N, int X_Position)
 	{
-		CryptoPpDlogGF ring = new CryptoPpDlogGF();
+		
 		
 		n=N;
 		x_position = X_Position;
