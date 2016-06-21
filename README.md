@@ -4,7 +4,7 @@ Steps/Commands for running JNI in scapi:-
 2. Compile .java file 
 Ex. javac Polynomial.java CryptoPpDlogGF.java 
 3. Generate header file 
-javah Polynomial
+javah edu.biu.scapi.primitives.dlog.<class name>
 4. Copy header file and .cpp file to /home/../scapi/src/jni/CryptoPPJavaInterface
 5. Do changes in MAKEFILE
 Go to  /home/../scapi/src/jni/CryptoPPJavaInterface/makefile
