@@ -8,7 +8,7 @@ import edu.biu.scapi.primitives.dlog.GF2m;
 
 public class CryptoPpDlogGF implements GF2m {
 
-	private long pointerToField = 0; // pointer to the native field for the GF 32 functionality */
+	protected long pointerToField = 0; // pointer to the native field for the GF 32 functionality */
 
 	private native long createFieldGf();
 	private native long createFieldGfWithModulus(int modulus);
