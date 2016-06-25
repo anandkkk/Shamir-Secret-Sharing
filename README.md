@@ -9,13 +9,16 @@ javah edu.biu.scapi.primitives.dlog.class_name
 5. Do changes in MAKEFILE
 Go to  /home/../scapi/src/jni/CryptoPPJavaInterface/makefile
 in SOURCES= (here add the cpp file name)
+// If changes in Scapi Java files are present
 6. sudo make clean-scapi
 7. sudo make compile-scapi
-8. sudo make clean-cryptopp
+8. Copy Scapi-2.4.jar from /home/../scapi/build/scapi to /usr/lib/scapi
+
+//If changes in JNI files are present
 9. sudo make clean-jni-cryptopp
 10. sudo make prefix=/usr
 11. sudo make install prefix=/usr
 12. Copy libCryptoPPJavaInterface.so from /home/../scapi/src/jni/CryptoPPJavaInterface
 to /usr/lib/scapi
-13. Copy Scapi-2.4.jar from /home/../scapi/build/scapi to /usr/lib/scapi
-14. Run Test files with scapic and scapi commands
+
+13. Run Test files with scapic and scapi commands
