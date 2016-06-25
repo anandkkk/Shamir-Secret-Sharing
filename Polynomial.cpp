@@ -25,11 +25,10 @@ JNIEXPORT jintArray JNICALL Java_edu_biu_scapi_primitives_dlog_Polynomial_Prepar
 {
 
 	int xlen = (env)->GetArrayLength(x);
-	int *xarray = (env)->GetIntArrayElements(x, 0);
+	int *xarray = (env)->GetIntArrayElements(x, NULL);
 
-	const jsize length = env->GetArrayLength(x);	
-	jintArray w = env->NewIntArray(length);
-	jint *warr = env->GetIntArrayElements(w, 0);
+	jintArray warr = env->NewIntArray(n);
+	jint w[n]; 
 
 	for (int i=0; i<n; i++)
 	{
@@ -37,21 +36,19 @@ JNIEXPORT jintArray JNICALL Java_edu_biu_scapi_primitives_dlog_Polynomial_Prepar
 		for (int j=0; j<n; j++)
 			if (i != j)
 				t = ((GF2_32 *) ring)->Multiply(t, ((GF2_32 *) ring)->Subtract(xarray[i], xarray[j]));
-		warr[i] = ((GF2_32 *) ring)->MultiplicativeInverse(t);
-		printf("warr[%d]%d\n",i,warr[i]);
+		w[i] = ((GF2_32 *) ring)->MultiplicativeInverse(t);
 	}
 	
-	env->ReleaseIntArrayElements(w, warr, n);	
+	env->SetIntArrayRegion(warr, 0, n,w);	
 
-	return w;	
+	return warr;	
 }
 JNIEXPORT jintArray JNICALL Java_edu_biu_scapi_primitives_dlog_Polynomial_PrepareBulkPolynomialInterpolationAt
   (JNIEnv * env, jobject, jlong ring, jint x_position, jintArray xarray, jintArray warray, jint n)
 {
 
-	const jsize length = n;	
-	jintArray v = env->NewIntArray(length);
-	jint *varr = env->GetIntArrayElements(v, 0);
+	jintArray v = env->NewIntArray(n);
+	jint varr[n];
 
 	int xlen = (env)->GetArrayLength(xarray);
 	int *x = (env)->GetIntArrayElements(xarray, 0);
@@ -80,9 +77,8 @@ JNIEXPORT jintArray JNICALL Java_edu_biu_scapi_primitives_dlog_Polynomial_Prepar
 
 	for (i=0; i<n; i++){
 		varr[i] = ((GF2_32 *) ring)->Multiply(a[n-1+i], w[i]);
-		printf("varr[%d]%d\n",i,varr[i]);
 	}
-	env->ReleaseIntArrayElements(v, varr, n);	
+	env->SetIntArrayRegion(v, 0, n,varr);	
 
 	return v;	
 
